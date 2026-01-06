@@ -10,24 +10,32 @@ repositories {
 }
 
 dependencies {
-    // JUnit 5
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.14.1'
+    // JUnit 5 BOM
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.11.4'
 
-    // RestAssured
-    testImplementation 'io.rest-assured:rest-assured:5.5.6'
-
-    // Commons codec
-    implementation 'commons-codec:commons-codec:1.20.0'
-
-
-    // Json parser for handling JSON responses
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.4'
-
-    // AssertJ for better assertions
+    // AssertJ для тестов
     testImplementation 'org.assertj:assertj-core:3.27.6'
 
+    // RestAssured для main
+    implementation 'io.rest-assured:rest-assured:5.5.6'
+    implementation 'commons-codec:commons-codec:1.20.0'
+
+    // Jackson для main
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 test {
     useJUnitPlatform()
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }

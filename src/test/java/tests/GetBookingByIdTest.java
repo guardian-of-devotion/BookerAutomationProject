@@ -22,7 +22,7 @@ public class GetBookingByIdTest {
     @Test
     public void testGetBookingById() throws Exception {
         // Отправка GET-запроса на получение бронирования по ID
-        Response response = apiClient.getBookingById();
+        Response response = apiClient.getBookingById(14);
 
         // Проверка статус-кода
         assertThat(response.getStatusCode()).isEqualTo(200);
@@ -39,12 +39,5 @@ public class GetBookingByIdTest {
         assertThat(booking.getBookingdates().getCheckin()).isEqualTo("2015-11-12");
         assertThat(booking.getBookingdates().getCheckout()).isEqualTo("2018-01-08");
         assertThat(booking.getAdditionalneeds()).isEqualTo("Breakfast");
-
-
-
-
-
-
-
     }
 }
