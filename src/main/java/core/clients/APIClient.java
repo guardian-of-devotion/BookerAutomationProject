@@ -123,4 +123,60 @@ public class APIClient {
                 .extract()
                 .response();
     }
+
+    public Response createBooking(String newBooking) {
+        return getRequestSpec()
+                .body(newBooking)
+                .log().all()
+                .when()
+                .post(ApiEndpoints.BOOKING.getPath())
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
+    public Response updateBooking(int bookingid, String requestBody) {
+        return getRequestSpec()
+                .pathParam("id", bookingid)
+                .body(requestBody)
+                .log().all()
+                .when()
+                .put(ApiEndpoints.BOOKING.getPath() + "/{id}")
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
+    public Response partialUpdateBooking(int bookingid, String requestBody) {
+        return getRequestSpec()
+                .pathParam("id", bookingid)
+                .body(requestBody)
+                .log().all()
+                .when()
+                .patch(ApiEndpoints.BOOKING.getPath() + "/{id}")
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
+    public Response getBookingWithFilters(String firstname, String lastname) {
+        RequestSpecification spec = getRequestSpec();
+
+        if (firstname != null) {
+            spec = spec.queryParam("firstname", firstname);
+        }
+        if (lastname != null) {
+            spec = spec.queryParam("lastname", lastname);
+        }
+
+        return spec
+                .when()
+                .get(ApiEndpoints.BOOKING.getPath())
+                .then()
+                .extract()
+                .response();
+    }
 }
