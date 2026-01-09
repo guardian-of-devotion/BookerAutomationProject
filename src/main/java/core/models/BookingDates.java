@@ -1,15 +1,13 @@
 package core.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BookingDates {
     private String checkin;
     private String checkout;
 
-    @JsonCreator
-    public BookingDates(@JsonProperty("checkin") String checkin,
-                        @JsonProperty("checkout") String checkout) {
+    public BookingDates() {} // Пустой конструктор нужен чтобы Jackson не ругался на отсутствие базового конструктора
+
+    public BookingDates(String checkin, String checkout) {
         this.checkin = checkin;
         this.checkout = checkout;
     }
